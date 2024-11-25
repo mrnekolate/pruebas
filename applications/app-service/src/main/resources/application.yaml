@@ -1,0 +1,45 @@
+##Spring Configuration
+server:
+  port: 8080
+spring:
+  application:
+    name: r2dbc-example
+  devtools:
+    add-properties: false
+  profiles:
+    include:
+  logging:
+    level:
+      root: INFO
+      reactor:
+        netty: false
+
+management:
+  endpoint:
+    health:
+      enabled: true
+      show-details: never
+      probes:
+        enabled: true
+  endpoints:
+    web:
+      exposure:
+        include: health, liveness, readiness
+      base-path: /
+      path-mapping:
+        health: health
+        liveness: liveness
+        readiness: readiness
+
+adapters:
+  postgres:
+    database: "postgres_db"
+    host: "localhost"
+    port: 5432
+    username: "postgres"
+    password: "postgres"
+    schema: "schema"
+    pool:
+      initial-size: 12
+      max-size: 15
+      max-idle-time: 10
